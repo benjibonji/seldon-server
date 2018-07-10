@@ -1,3 +1,4 @@
+from comet_ml import Experiment
 from __future__ import absolute_import
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
@@ -160,6 +161,7 @@ class KerasClassifier(BasePandasEstimator,BaseEstimator,ClassifierMixin):
         if self.compiled_model_ is None:
             self.compiled_model_ = copy.deepcopy(self.model)
             self.compiled_model_.compile(optimizer=self.optimizer, loss=self.loss)
+        experiment = Experiment(project_name='SeldonIO/seldon-server')
         history = self.compiled_model_.fit(
             X, y, batch_size=self.train_batch_size, nb_epoch=self.nb_epoch, verbose=self.verbose,
             shuffle=self.shuffle,

@@ -1,3 +1,4 @@
+from comet_ml import Experiment
 from __future__ import absolute_import
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
@@ -27,6 +28,7 @@ class Test_KerasClassifier(unittest.TestCase):
         df = pd.DataFrame.from_dict(fs)
         estimators = [("keras",t)]
         p = Pipeline(estimators)
+        experiment = Experiment(project_name='SeldonIO/seldon-server')
         p.fit(df)
         preds = p.predict_proba(df)
         print preds

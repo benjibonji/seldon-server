@@ -1,3 +1,4 @@
+from comet_ml import Experiment
 import sys, getopt, argparse
 import seldon.pipeline.basic_transforms as bt
 import seldon.pipeline.util as sutl
@@ -32,6 +33,7 @@ def run_pipeline(events,models):
     pw = sutl.Pipeline_wrapper()
     print events
     df = pw.create_dataframe_from_files(events)
+    experiment = Experiment(project_name='SeldonIO/seldon-server')
     df2 = p.fit(df)
     pw.save_pipeline(p,models)
 
